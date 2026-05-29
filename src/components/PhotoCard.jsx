@@ -1,5 +1,5 @@
 
-function PhotoCard({ photo }) {
+function PhotoCard({ photo, isFavourite, onToggleFavourite }) {
   return (
     <div className="rounded-lg overflow-hidden shadow-md">
       <img
@@ -9,7 +9,9 @@ function PhotoCard({ photo }) {
       />
       <div className="p-2 flex justify-between items-center">
         <p className="text-sm font-medium truncate">{photo.author}</p>
-        <button>❤️</button>
+        <button onClick={onToggleFavourite}>
+          {isFavourite ? "❤️" : "🤍"}
+        </button>
       </div>
     </div>
   );

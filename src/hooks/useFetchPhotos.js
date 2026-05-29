@@ -8,7 +8,7 @@ function useFetchPhotos() {
     useEffect(() => {
         async function fetchData() {
             try {
-                await new Promise(resolve => setTimeout(resolve, 3000)) 
+                await new Promise(resolve => setTimeout(resolve, 1000)) 
                 const response = await fetch("https://picsum.photos/v2/list?limit=30")
                 if (!response.ok) throw new Error("Failed to fetch photos")
                 const data = await response.json()
