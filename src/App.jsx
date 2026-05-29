@@ -1,12 +1,22 @@
 import useFetchPhotos from "./hooks/useFetchPhotos";
 import PhotoCard from "./components/PhotoCard";
 import SearchBar from "./components/SearchBar";
-import { useState,useReducer } from "react";
+import { useState,useReducer, useCallback, useMemo } from "react";
 import { favouritesReducer, initialState } from "./reducer/favouritesReducer"
 function App() {
   const { photos, loading, error } = useFetchPhotos();
   const [searchQuery, setSearchQuery] = useState("");
   const [state, dispatch] = useReducer(favouritesReducer, initialState)
+
+  const handleSearch = useCallback((query) => {
+    setSearchQuery(query);
+  }, []);
+
+  const filteredPhotos = useMemo(() => {
+    return photos.filter((photo) =>
+      photo.author.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [photos, searchQuery]);
 
   if (loading)
     return (
@@ -21,13 +31,11 @@ function App() {
         <p className="text-red-500 text-xl">{error}</p>
       </div>
     );
-  const filteredPhotos = photos.filter((photo) =>
-    photo.author.toLowerCase().includes(searchQuery.toLowerCase()),
-  );
+  
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Photo Gallery</h1>
-      <SearchBar searchQuery={searchQuery} onSearch={setSearchQuery} />
+      <SearchBar searchQuery={searchQuery} onSearch={handleSearch} />
       {/* <pre>{JSON.stringify(photos[0], null, 2)}</pre> */}
       {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {filteredPhotos.map((photo) => (
