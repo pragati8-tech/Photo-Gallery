@@ -1,4 +1,5 @@
-import useFetchPhotos from "./hooks/useFetchPhotos";
+import useFetchPhotos from "./hooks/useFetchPhotos"
+import PhotoCard from "./components/PhotoCard"
 
 function App() {
   const { photos, loading, error } = useFetchPhotos();
@@ -18,7 +19,12 @@ function App() {
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Photo Gallery</h1>
-      <pre>{JSON.stringify(photos[0], null, 2)}</pre>
+      {/* <pre>{JSON.stringify(photos[0], null, 2)}</pre> */}
+       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {photos.map((photo) => (
+          <PhotoCard key={photo.id} photo={photo} />
+        ))}
+      </div>
     </div>
   );
 }
