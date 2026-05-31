@@ -3,6 +3,7 @@ import PhotoCard from "./components/PhotoCard";
 import SearchBar from "./components/SearchBar";
 import { useState,useReducer, useCallback, useMemo } from "react";
 import { favouritesReducer, initialState } from "./reducer/favouritesReducer"
+import galleryIcon from "./assests/icons-photo-gallery.png"
 function App() {
   const { photos, loading, error } = useFetchPhotos();
   const [searchQuery, setSearchQuery] = useState("");
@@ -34,7 +35,7 @@ function App() {
   
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Photo Gallery</h1>
+      <h1 className="text-2xl font-bold mb-4"><img src={galleryIcon} alt="gallery icon" className="w-8 h-8 inline mr-2" /> Photo Gallery</h1>
       <SearchBar searchQuery={searchQuery} onSearch={handleSearch} />
       {/* <pre>{JSON.stringify(photos[0], null, 2)}</pre> */}
       {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

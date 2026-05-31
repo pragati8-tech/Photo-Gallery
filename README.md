@@ -1,16 +1,52 @@
-# React + Vite
+# Photo Gallery App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A responsive photo gallery web app built with React + Vite + Tailwind CSS.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Fetches 30 photos from [Picsum Photos API](https://picsum.photos/v2/list?limit=30)
+- Loading spinner while photos are being fetched
+- Error message if fetch fails
+- Responsive grid layout (1 column mobile, 2 tablet, 4 desktop)
+- Real-time search filter by author name
+- Favourite photos with heart icon toggle
+- Favourites persist across page refreshes using localStorage
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React + Vite
+- Tailwind CSS
+- Picsum Photos API
 
-## Expanding the ESLint configuration
+## Project Structure
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```
+src/
+├── components/
+│   ├── PhotoCard.jsx       # Single photo card with heart toggle
+│   └── SearchBar.jsx       # Search input component
+├── hooks/
+│   └── useFetchPhotos.js   # Custom hook for fetching photos
+├── reducer/
+│   └── favouritesReducer.js # useReducer logic for favourites
+├── App.jsx
+└── index.css
+```
+
+## Hooks Used
+
+| Hook | Where | Why |
+|---|---|---|
+| `useFetchPhotos` | Custom hook | Fetches photos, returns photos, loading, error |
+| `useReducer` | App.jsx | Manages favourites state |
+| `useCallback` | App.jsx | Prevents handleSearch from recreating on every render |
+| `useMemo` | App.jsx | Prevents filteredPhotos from recalculating on every render |
+
+## Getting Started
+
+bash
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
